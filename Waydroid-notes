@@ -1,0 +1,92 @@
+Good catch 👍 — that error means **`waydroid` isn’t in Manjaro’s default repositories**.
+Let’s fix it 👇
+
+---
+
+### 🟢 Step 1 — Enable AUR (if not already)
+
+Waydroid is available in the **AUR (Arch User Repository)**, not the default Manjaro repos.
+So you need an AUR helper like `yay` or `pamac`.
+
+#### If you already have `yay`:
+
+You can directly install Waydroid:
+
+```bash
+yay -S waydroid
+```
+
+#### If you don’t have `yay` yet:
+
+Install it:
+
+```bash
+sudo pacman -S --needed base-devel git
+git clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -si
+```
+
+Then run:
+
+```bash
+yay -S waydroid
+```
+
+---
+
+### 🟢 Step 2 — Enable and start the Waydroid container
+
+Once installed, set up the service:
+
+```bash
+sudo systemctl enable --now waydroid-container
+```
+
+Then initialize the Android image:
+
+```bash
+sudo waydroid init
+```
+
+---
+
+### 🟢 Step 3 — Start session and launch GUI
+
+```bash
+waydroid session start
+waydroid show-full-ui
+```
+
+You’ll now see the Android interface inside a window on your Manjaro desktop.
+From there, open the **browser inside Waydroid**, go to [whatsapp.com/android](https://www.whatsapp.com/android), and install the APK.
+
+---
+
+### ✅ Optional — Install APK directly
+
+If you downloaded `WhatsApp.apk` to your Linux system:
+
+```bash
+waydroid app install ~/Downloads/WhatsApp.apk
+```
+
+Then launch:
+
+```bash
+waydroid app launch com.whatsapp
+```
+
+---
+
+### 🔊 Calls support
+
+Voice and video calls **work** in Waydroid (because it runs a real Android environment), provided:
+
+* Your **microphone** and **camera** are available to Waydroid
+* You allowed permissions inside Android Settings → Apps → WhatsApp
+
+---
+
+Would you like me to give you the exact **KDE setup tweaks** (Wayland vs X11) for camera and mic access?
+Those are important to make calls work smoothly.

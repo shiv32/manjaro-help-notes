@@ -1,0 +1,81 @@
+Great — your output clearly shows the answer:
+
+# ✅ **Your VirtualBox is installed from pacman (official Arch/Manjaro repo)**
+
+Because the `Repository` line says:
+
+```
+Repository      : extra
+```
+
+and the packager is an Arch maintainer:
+
+```
+Packager : Christian Hesse <eworm@archlinux.org>
+```
+
+So **you are using official repo VirtualBox, NOT AUR**.
+This is good — more stable and supports Guest Additions properly.
+
+---
+
+# ✅ **Next Step: Install the Guest Additions ISO (you don’t have it yet)**
+
+Your output also shows:
+
+```
+Optional Deps: virtualbox-guest-iso: Guest Additions CD image
+```
+
+➡️ This means the ISO is **not installed**.
+
+Install it using:
+
+```bash
+sudo pacman -S virtualbox-guest-iso
+```
+
+This will put the ISO here:
+
+```
+/usr/lib/virtualbox/additions/VBoxGuestAdditions.iso
+```
+
+---
+
+# ✅ **Then mount inside VM**
+
+In VirtualBox menu (VM running):
+
+```
+Devices → Optical Drives → Choose Disk File…
+```
+
+Select:
+
+```
+/usr/lib/virtualbox/additions/VBoxGuestAdditions.iso
+```
+
+Inside Windows 11 VM, run:
+
+```
+VBoxWindowsAdditions.exe
+```
+
+Reboot VM afterwards.
+
+---
+
+# 🟦 After this, all features will work:
+
+* Full screen
+* Auto-resize display
+* Mouse integration
+* Shared clipboard
+* Drag & drop
+* Shared folders
+
+---
+
+If you want, I can walk you step-by-step through installing Guest Additions inside Windows 11.

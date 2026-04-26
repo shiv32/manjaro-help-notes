@@ -1,0 +1,13 @@
+
+-------------------------------------------------------
+GUI EPUB Readers
+
+Calibre
+
+Full-featured ebook manager and reader.
+
+Install:
+	sudo pacman -S calibre
+
+Opens EPUB, PDF, MOBI, etc.
+--------------------------------------------------------

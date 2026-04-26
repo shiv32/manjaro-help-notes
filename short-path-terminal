@@ -1,0 +1,22 @@
+	Disable Manjaro's custom prompt and use your own
+
+	If you want full control over your prompt:
+
+ 	Open your .zshrc:
+
+		nano ~/.zshrc
+
+    	Comment out these lines to stop loading Manjaro's prompt:
+
+		# source /usr/share/zsh/manjaro-zsh-config
+		# source /usr/share/zsh/manjaro-zsh-prompt
+
+    	Add your custom prompt, for example:
+
+		PROMPT='%F{blue}%1~%f %# '
+           or
+                PROMPT='%1~$ '  //change ~ %  to ~$
+
+   	Reload Zsh:
+
+		exec zsh

@@ -1,0 +1,25 @@
+
+
+Full info of RAM modules:
+
+--------------------(1)------------------------
+	sudo pacman -S i2c-tools
+
+	sudo decode-dimms
+
+------------------(2)--------------------------
+sudo pacman -S dmidecode
+
+
+Command to show max supported RAM in motherboard:
+
+	sudo dmidecode -t memory | grep -i "Maximum Capacity"
+
+Full memory info:
+
+	sudo dmidecode -t memory
+
+Identifying your motherboard model:
+
+	sudo dmidecode -t baseboard
+--------------------------------------------

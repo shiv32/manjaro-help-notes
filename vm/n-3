@@ -1,0 +1,143 @@
+To verify **VBoxGuestAdditions** is correctly installed and updated inside your **Windows 11 VM**, you can check it in multiple ways.
+
+Here are the **reliable verification methods**:
+
+---
+
+# ✅ **1. Check inside the Windows VM (most accurate)**
+
+### **Step 1 — Open Device Manager**
+
+Press:
+
+```
+Win + X → Device Manager
+```
+
+### **Step 2 — Expand “System devices”**
+
+You should see entries like:
+
+* **VirtualBox Device**
+* **VirtualBox Guest Additions**
+* **VirtualBox Graphics Adapter**
+* **VirtualBox Shared Clipboard**
+* **VirtualBox Mouse Integration**
+
+If these are present → Guest Additions is installed.
+
+---
+
+# ✅ **2. Check Guest Additions version inside Windows**
+
+### Method A — Using VBoxControl
+
+In Windows:
+
+1. Press **Win + R**
+2. Type:
+
+   ```
+   cmd
+   ```
+3. Run:
+
+```
+"C:\Program Files\Oracle\VirtualBox Guest Additions\VBoxControl.exe" --version
+```
+
+You should get a version like:
+
+```
+7.2.4r154327
+```
+
+If this matches your **host VirtualBox version** → it is updated.
+
+---
+
+# 🟦 Check host version on Manjaro:
+
+Run:
+
+```bash
+pacman -Qi virtualbox | grep Version
+```
+
+Example:
+
+```
+Version         : 7.2.4-1
+```
+
+So **your Windows VM must also show 7.2.4.x**.
+
+---
+
+# ✅ **3. Check Guest Additions tray icon**
+
+If Guest Additions is active, you will see this icon in Windows system tray:
+**Blue VirtualBox icon**
+
+If not visible → GA may not be installed.
+
+---
+
+# ✅ **4. Check Feature behavior**
+
+If Guest Additions is installed and up to date:
+
+✔ Full screen works
+✔ Auto-resize works
+✔ Shared clipboard works
+✔ Drag & drop works
+✔ Mouse pointer is seamless
+✔ Shared folders mount correctly
+
+If any of these don’t work → Guest Additions is missing or old.
+
+---
+
+# 🟡 **Useful: Check version through the installer**
+
+In Windows:
+
+1. Insert Guest Additions ISO again
+2. Run:
+
+```
+VBoxWindowsAdditions.exe
+```
+
+If it shows **“You already have this version installed”**, it’s updated.
+
+If it asks to install → your version is outdated.
+
+---
+
+# 🔥 **Summary — How to verify updated**
+
+The most accurate check:
+
+### 1️⃣ Inside Windows run:
+
+```
+"C:\Program Files\Oracle\VirtualBox Guest Additions\VBoxControl.exe" --version
+```
+
+### 2️⃣ Compare with host VirtualBox version:
+
+```bash
+pacman -Qi virtualbox
+```
+
+If both versions match → **Guest Additions is updated**.
+
+---
+
+If you want, tell me the output of:
+
+* `VBoxControl.exe --version` inside Windows
+* `pacman -Qi virtualbox | grep Version` on host
+
+and I’ll confirm 100% if they match.

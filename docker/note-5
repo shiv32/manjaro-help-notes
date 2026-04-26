@@ -1,0 +1,96 @@
+Good question 👍 — let’s **undo or remove** the Docker context changes you made.
+You basically created and switched to a remote Docker context.
+Here’s how to **revert to the default (local)** Docker environment.
+
+---
+
+## 🧹 Step-by-step to undo:
+
+### 1️⃣ Switch back to default context
+
+```bash
+docker context use default
+```
+
+✅ This tells Docker to use your local (default) Docker engine again.
+
+---
+
+### 2️⃣ Remove the remote context
+
+If you don’t want that remote context anymore:
+
+```bash
+docker context rm remote
+```
+
+You can check available contexts first:
+
+```bash
+docker context ls
+```
+
+Example output:
+
+```
+NAME        DESCRIPTION                               DOCKER ENDPOINT               CURRENT
+default *   Current DOCKER_HOST based configuration   unix:///var/run/docker.sock   *
+remote      ssh://user@server-ip
+```
+
+After removing:
+
+```
+docker context rm remote
+```
+
+---
+
+### 3️⃣ Verify
+
+```bash
+docker context ls
+```
+
+Should show only:
+
+```
+default *   Current DOCKER_HOST based configuration   unix:///var/run/docker.sock
+```
+
+And:
+
+```bash
+docker ps
+```
+
+should now show containers from **your local** Docker engine.
+
+---
+
+### 🧭 Optional: confirm current context
+
+```bash
+docker context show
+```
+
+Output should be:
+
+```
+default
+```
+
+---
+
+✅ **Summary**
+
+| Command                      | Purpose                   |
+| ---------------------------- | ------------------------- |
+| `docker context use default` | Switch back to local      |
+| `docker context rm remote`   | Delete the remote context |
+| `docker context ls`          | List all contexts         |
+| `docker context show`        | Show current context      |
+
+---
+
+Would you like me to also show how to **recreate it cleanly later** (e.g. if you want to reconnect to remote Docker again)?

@@ -1,0 +1,120 @@
+
+Convert hybernate swap to normal swap for ram use -->
+
+Note -> swap partition(during installation) not swap file in /
+
+NAME      TYPE       SIZE   USED PRIO
+/dev/sdc3 partition 14.9G   0B   -2
+
+
+✅ You are using a **swap partition** (`/dev/sdc3`), most likely set up for **hibernation** during installation.
+
+Let’s check if this partition is currently being used **for resume (hibernate)**.
+
+---
+
+### 🔍 1. Get UUID of the swap partition
+
+Run:
+
+```bash
+blkid /dev/sdc3
+```
+
+Example output:
+
+```
+/dev/sdc3: UUID="abcd-1234" TYPE="swap"
+```
+
+---
+
+### 🔍 2. Check kernel parameters
+
+Run:
+
+```bash
+cat /proc/cmdline
+```
+
+Check if you see:
+
+```
+... resume=UUID=abcd-1234 ...
+```
+
+If the UUID in `resume=UUID=...` **matches** the one from `/dev/sdc3`, then your system **is set up to use hibernate**.
+
+---
+
+### 🔍 3. Optional: Check initramfs config
+
+Run:
+
+```bash
+grep resume /etc/mkinitcpio.conf
+```
+
+If it shows `resume` in the `HOOKS=...` line, your initramfs is also set for hibernation.
+
+---
+
+### ✅ To Convert It to "Normal" Swap (RAM overflow only):
+
+Do **all three**:
+
+---
+
+### 🧹 A. Remove `resume` from `/etc/mkinitcpio.conf`
+
+```bash
+sudo nano /etc/mkinitcpio.conf
+```
+
+Edit:
+
+```diff
+-HOOKS=(base udev autodetect modconf block resume filesystems ...)
++HOOKS=(base udev autodetect modconf block filesystems ...)
+```
+
+Then rebuild:
+
+```bash
+sudo mkinitcpio -P
+```
+
+---
+
+### 🧹 B. Remove `resume=` from GRUB config
+
+```bash
+sudo nano /etc/default/grub
+```
+
+Edit:
+
+```diff
+-GRUB_CMDLINE_LINUX_DEFAULT="quiet resume=UUID=abcd-1234"
++GRUB_CMDLINE_LINUX_DEFAULT="quiet"
+```
+
+Then update:
+
+```bash
+sudo update-grub
+```
+
+---
+
+### 🔁 C. Reboot your system
+
+After reboot, run again:
+
+```bash
+cat /proc/cmdline
+```
+
+You should **not** see `resume=UUID=...` anymore.
+
+Now `/dev/sdc3` is just a **normal swap partition** (for RAM overflow, no hibernate).

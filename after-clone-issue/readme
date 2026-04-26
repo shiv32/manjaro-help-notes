@@ -1,0 +1,6 @@
+after clone from hdd to ssd boot time increased
+due to 
+1. delete swap in ssd from hdd to resize root dir
+
+so I commneted swap in sdd in file "sudo nano /etc/fstab"
+and it fixed the issue.      

@@ -1,0 +1,17 @@
+
+for manjaro in oracle vm
+
+Install Open VM Tools:
+
+	sudo pacman -Syu
+	sudo pacman -S open-vm-tools
+
+For desktop support (copy/paste, drag-drop):
+
+	sudo pacman -S open-vm-tools-desktop
+
+Then enable the service:
+
+	sudo systemctl enable --now vmtoolsd.service
+
+And reboot.

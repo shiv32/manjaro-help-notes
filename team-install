@@ -1,0 +1,63 @@
+install **Microsoft Teams** on **Manjaro Linux**.
+Since Manjaro is Arch-based, the easiest way is to use the **AUR (Arch User Repository)**.
+
+Here are the steps:
+
+---
+
+### 1. Update system
+
+```bash
+sudo pacman -Syu
+```
+
+---
+
+### 2. Install an AUR helper (if you don’t have one)
+
+For example `yay`:
+
+```bash
+sudo pacman -S --needed base-devel git
+git clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -si
+```
+
+---
+
+### 3. Install Teams
+
+There are two main packages:
+
+* `teams` → Official binary (sometimes outdated, Microsoft discontinued the Linux desktop client mid-2022).
+* `teams-for-linux` → Community Electron wrapper for Teams web app, still maintained and recommended.
+
+Install one of them, e.g.:
+
+```bash
+yay -S teams-for-linux
+```
+
+or
+
+```bash
+yay -S teams
+```
+
+---
+
+### 4. Launch Teams
+
+After installation, you can start it from your application menu or with:
+
+```bash
+teams-for-linux
+```
+
+---
+
+✅ **Tip:** Since Microsoft ended support for the native Linux Teams client, most users now prefer `teams-for-linux` (web-wrapper with notifications, tray icon, etc.).
+
+---
+

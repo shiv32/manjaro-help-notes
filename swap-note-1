@@ -1,0 +1,117 @@
+To **convert your hibernate-enabled swap to a normal swap file** on **Manjaro** (or any Arch-based system), follow these steps:
+Note -> if you're using **Btrfs**, because swap on Btrfs has extra steps that not covered here
+---
+
+### ✅ STEP 1: Turn off current swap
+
+```bash
+sudo swapoff -a
+```
+
+---
+
+### ✅ STEP 2: Remove or comment out the resume hook from initramfs
+
+1. Edit **`/etc/mkinitcpio.conf`**:
+
+```bash
+sudo nano /etc/mkinitcpio.conf
+```
+
+2. Find the line:
+
+```bash
+HOOKS=(... resume ...)
+```
+
+Remove or comment out `resume`, e.g.:
+
+```bash
+# HOOKS=(base udev autodetect modconf block resume filesystems keyboard fsck)
+HOOKS=(base udev autodetect modconf block filesystems keyboard fsck)
+```
+
+---
+
+### ✅ STEP 3: Rebuild initramfs
+
+```bash
+sudo mkinitcpio -P
+```
+
+---
+
+### ✅ STEP 4: Remove resume kernel parameter from GRUB
+
+1. Edit **`/etc/default/grub`**:
+
+```bash
+sudo nano /etc/default/grub
+```
+
+2. Find the line like:
+
+```bash
+GRUB_CMDLINE_LINUX_DEFAULT="quiet resume=UUID=xxxxx"
+```
+
+Remove the `resume=UUID=xxxxx` part.
+
+---
+
+### ✅ STEP 5: Update GRUB
+
+```bash
+sudo update-grub
+```
+
+---
+
+### ✅ STEP 6: Delete existing hibernate swap (optional)
+
+```bash
+sudo rm /swapfile
+```
+
+---
+
+### ✅ STEP 7: Create a normal swap file (RAM-only swap)
+
+Let’s say you want 2 GB:
+
+```bash
+sudo fallocate -l 2G /swapfile
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+```
+
+---
+
+### ✅ STEP 8: Make it permanent
+
+Edit **`/etc/fstab`**:
+
+```bash
+sudo nano /etc/fstab
+```
+
+Add:
+
+```bash
+/swapfile none swap defaults 0 0
+```
+
+---
+
+### ✅ Final Check
+
+```bash
+swapon --show
+```
+
+You should now see a clean swap file without resume or hibernate capability.
+
+---
+
+

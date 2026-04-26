@@ -1,0 +1,159 @@
+Your terminal isn’t broken — you’re just **running Bash config inside a different shell (likely Zsh)**.
+
+That’s why you see errors like:
+
+* `shopt: command not found`
+* `complete: command not found`
+
+These are **Bash-only commands**, and they fail in **Zsh**.
+
+---
+
+# 🔥 What’s actually happening
+
+You ran:
+
+```bash
+source ~/.bashrc
+```
+
+But your current shell is probably:
+
+```bash
+echo $SHELL
+```
+
+Output will likely be:
+
+```
+/bin/zsh
+```
+
+👉 So:
+
+* `.bashrc` = meant for **Bash**
+* You executed it in **Zsh** → errors 💥
+
+---
+
+# 🧠 Why prompt looks weird
+
+This line:
+
+```
+\[\033[01;32m\][\u@\h ... ]
+```
+
+is a **Bash-style prompt (PS1)**
+
+Zsh does NOT understand:
+
+* `\[` `\]`
+* `\u`, `\h`, etc. (different syntax)
+
+👉 So it prints raw escape codes instead of formatting.
+
+---
+
+# ✅ Fix Options (Choose ONE)
+
+---
+
+## ✅ Option 1: Use Bash (simplest)
+
+Switch to Bash:
+
+```bash
+bash
+```
+
+Then:
+
+```bash
+source ~/.bashrc
+```
+
+✔ No errors
+✔ Prompt works correctly
+
+If you want Bash as default:
+
+```bash
+chsh -s /bin/bash
+```
+
+---
+
+## ✅ Option 2: Stay in Zsh (recommended for Manjaro)
+
+Then **DON’T use `.bashrc`**
+
+Use:
+
+```bash
+nano ~/.zshrc
+```
+
+And put your config there instead.
+
+### For JAVA_HOME (your actual goal):
+
+```bash
+export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
+export PATH=$JAVA_HOME/bin:$PATH
+```
+
+Then:
+
+```bash
+source ~/.zshrc
+```
+
+---
+
+## ❌ What NOT to do
+
+Don’t do this in Zsh:
+
+```bash
+source ~/.bashrc   ❌
+```
+
+---
+
+# 🧩 Why those errors exactly?
+
+| Error                | Reason                   |
+| -------------------- | ------------------------ |
+| `shopt not found`    | Bash builtin, not in Zsh |
+| `complete not found` | Bash completion system   |
+| `parse error near &` | Syntax difference        |
+| weird prompt         | Bash PS1 format          |
+
+---
+
+# ⚡ Quick Check
+
+Run:
+
+```bash
+echo $0
+```
+
+If output:
+
+* `zsh` → use `.zshrc`
+* `bash` → use `.bashrc`
+
+---
+
+# 🧭 My Recommendation (for you)
+
+Since you're into **low-level + control (C++ mindset)**:
+
+👉 Use **Bash** for simplicity
+👉 Or use **Zsh cleanly (no mixing configs)**
+
+---
+
+

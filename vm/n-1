@@ -1,0 +1,124 @@
+You can **easily check whether VirtualBox is installed from pacman (official repo) or AUR** on Manjaro/Arch.
+
+Here are the exact commands:
+
+---
+
+# ✅ **1. Check with `pacman -Qi`**
+
+Run:
+
+```bash
+pacman -Qi virtualbox
+```
+
+### If you get output → **installed from official repo**
+
+Example:
+
+```
+Name            : virtualbox
+Version         : 7.0.18-2
+Repository      : extra
+```
+
+**Repository: extra** → means from pacman.
+
+### If you get “package not found”:
+
+```
+error: package 'virtualbox' was not found
+```
+
+→ It may be installed from AUR.
+
+---
+
+# ✅ **2. Check for AUR version using `pamac` (Manjaro)**
+
+Run:
+
+```bash
+pamac info virtualbox
+```
+
+You will see two entries:
+
+### **If it shows “Available from AUR” AND “Installed: Yes”**
+
+→ You installed VirtualBox from **AUR**, e.g.:
+
+```
+virtualbox-bin (AUR)
+Installed: Yes
+```
+
+### **If only repository entry shows installed: Yes**
+
+→ Installed from **official repo**.
+
+---
+
+# ✅ **3. Check all VirtualBox packages installed**
+
+Run:
+
+```bash
+pacman -Qs virtualbox
+```
+
+Example output from official repo:
+
+```
+local/virtualbox 7.0.18-2
+local/virtualbox-host-modules-arch 7.0.18-2
+local/virtualbox-guest-iso 7.0.18-1
+```
+
+If you see packages like:
+
+```
+virtualbox-bin
+virtualbox-bin-headers
+```
+
+→ These come from **AUR**.
+
+---
+
+# 🔍 **4. Check using `pacman -Qm` (foreign/AUR packages)**
+
+Run:
+
+```bash
+pacman -Qm | grep -i virtualbox
+```
+
+* If nothing shows → VirtualBox is **NOT from AUR**
+* If it shows:
+
+```
+virtualbox-bin 7.0.18-1
+```
+
+→ It *is* installed from AUR.
+
+---
+
+# 🟦 Summary (easy rule)
+
+| Command                 | What it tells you         |
+| ----------------------- | ------------------------- |
+| `pacman -Qi virtualbox` | If installed from pacman  |
+| `pamac info virtualbox` | Shows repo vs AUR version |
+| `pacman -Qm`            | Lists AUR packages        |
+
+---
+
+If you send me your output from:
+
+```bash
+pacman -Qs virtualbox
+```
+
+I will tell you exactly which version you have and whether it’s safe for Guest Additions.

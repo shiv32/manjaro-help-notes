@@ -1,0 +1,5 @@
+
+
+ Check if you're on unstable or testing:
+
+	cat /etc/pacman-mirrors.conf | grep Branch

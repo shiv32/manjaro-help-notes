@@ -1,0 +1,108 @@
+Great — since your TP-Link adapter uses the **RTL8821AU** chipset, here’s the correct and **cleanest way** to get it working on **Manjaro Linux**.
+
+--------------------------------------
+$lsusb 
+Bus 005 Device 002: ID 2357:0120 TP-Link Archer T2U PLUS [RTL8821AU]
+
+-------------------------------------
+
+---
+
+## ✅ Summary of Steps
+
+1. 🧩 Install required packages
+2. 🧠 Get a compatible RTL8821AU driver
+3. 🛠️ Build and install it using DKMS
+4. 🔄 Load the module and test
+
+---
+
+## 🔧 Step 1: Install Required Tools
+
+Open terminal and run:
+
+```bash
+sudo pacman -S --needed base-devel dkms linux$(uname -r | cut -d. -f1,2 | tr -d '.')-headers git
+```
+
+Example: for kernel `6.12`, this installs `linux612-headers`.
+
+---
+
+## 📦 Step 2: Clone a RTL8821AU Driver
+
+There are a few versions — this one is actively maintained and supports 8821AU:
+
+```bash
+git clone https://github.com/morrownr/8821au-20210708.git
+cd 8821au-20210708
+```
+
+---
+
+## 🛠️ Step 3: Install via DKMS
+
+Run the included install script:
+
+```bash
+sudo ./install-driver.sh
+```
+
+This:
+
+* Registers it with DKMS
+* Builds it for your current kernel
+* Automatically loads the module
+
+If you want to manually handle it instead:
+
+```bash
+sudo dkms add .
+sudo dkms install 8821au/20210708
+```
+
+---
+
+## 🔄 Step 4: Load the Module
+
+If it doesn’t automatically load:
+
+```bash
+sudo modprobe 8821au
+```
+
+---
+
+## ✅ Step 5: Test the Adapter
+
+Check if it’s working:
+
+```bash
+nmcli device
+```
+
+Scan WiFi:
+
+```bash
+nmcli dev wifi list
+```
+
+---
+
+## 🧼 Optional: Blacklist Conflicting Modules
+
+If the built-in `rtl8xxxu` driver conflicts, blacklist it:
+
+```bash
+echo "blacklist rtl8xxxu" | sudo tee /etc/modprobe.d/blacklist-rtl8xxxu.conf
+```
+
+Then reboot:
+
+```bash
+sudo reboot
+```
+
+---
+
+Let me know if you want a version with monitor mode, or if this one fails to detect the device. I can help you pick another branch or debug further.

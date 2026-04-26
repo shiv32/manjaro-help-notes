@@ -1,0 +1,134 @@
+
+
+-------------------------------------------------
+vs code install -->
+
+	Recommendation for Manjaro:
+	    For general use/ease:  code from Manjaro repo (Code - OSS).
+	    For privacy & control: vscodium-bin from AUR (VSCodium).
+
+        (Preferred)
+	yay -S visual-studio-code-bin  # from AUR (official Microsoft build)
+
+	Code - OSS:
+	pamac install code
+
+	VSCodium:
+	pamac build vscodium-bin
+
+
+| Editor                 | Copilot Support | Notes                            |
+| ---------------------- | --------------- | -------------------------------- |
+| VS Code (Official) 	 | Full support    | Includes auth, chat, completions |
+| Code - OSS             | Unsupported     | Missing proprietary features     |
+| VSCodium               | Not supported   | Same issues as Code - OSS        |
+
+------------------------------------------------
+for debugger in vs code to work -->
+
+insall gdb by command as well as extenasion in vs code for debugger to work.
+extension name C/C++ Debug (gdb).
+
+Step-by-Step: Auto Debug CMake Projects in VSCodium
+1. Install the CMake Tools Extension
+
+You've likely done this, but just in case:
+
+codium --install-extension ms-vscode.cmake-tools
+
+2. Open a CMake Project in VSCodium
+
+Make sure your project has a CMakeLists.txt at the root.
+
+Example structure:
+
+my-project/
+├── CMakeLists.txt
+├── src/
+│   └── main.cpp
+
+3. Configure and Build Automatically
+
+Once the project is opened:
+
+    Press Ctrl+Shift+P, then run:
+
+CMake: Configure
+
+Then run:
+
+    CMake: Build
+
+CMake Tools will:
+
+    Generate the build/ directory
+
+    Detect targets
+
+    Build the binaries
+
+4. Automatically Debug Any Target
+
+You can now debug any target in one click:
+
+    Press Ctrl+Shift+P → select:
+
+	CMake: Debug Target
+
+	Choose your target (like main or my_app)
+
+	The debugger (GDB) will launch automatically, even without launch.json.
+
+----------------------------------------------------------------------
+zoom vs code and set font for termainl and editor -->
+
+code-oss:
+
+	1. Open VS Code (or Code - OSS).
+	2. Press Ctrl + Shift + P → type "Preferences: Open User Settings (JSON)" → hit Enter.
+	3. Paste the below config into the settings.json file.
+
+	{
+	  "window.zoomLevel": 1.5,//for overall vs code zoom
+	  "editor.fontSize": 18,// for editor font
+	  "terminal.integrated.fontSize": 16 //for termainal font
+	}
+
+	4. Save and restart VS Code if needed.
+
+
+VSCodium :
+
+	    Open a terminal
+
+	    Run:
+
+	    nano ~/.config/VSCodium/User/settings.json
+
+	    Add your settings manually, for example:
+
+	{
+	  "window.zoomLevel": 1.5,  //for overall vs code zoom
+	  "editor.fontSize": 18,   // for editor font
+	  "terminal.integrated.fontSize": 16 //for termainal font
+	}
+
+	    Save with Ctrl+O, exit with Ctrl+X
+
+	    Reopen VSCodium
+------------------------------------------------------------------------
+
+Disable Parameter Name Hints in VSCodium (C++)
+
+Steps via GUI:
+
+    Press Ctrl + , to open Settings.
+
+    Search for: inlay hints
+
+Find:
+
+    C_Cpp › Inlay Hints: Parameter Names: Enabled
+
+    Uncheck it/off
+-------------------------------------------------------------------------

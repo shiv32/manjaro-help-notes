@@ -1,0 +1,12 @@
+
+
+Lightweight vs Heavyweight DEs (At a Glance)
+
+| DE               | RAM (avg)                 | Speed      | Features          | Weight         |
+| ---------------- | ------------------------- | ---------- | ----------------- | -------------- |
+| LXQt		   | ~300 MB                   | Very fast  | Basic GUI tools   | Light       	 |
+| XFCE        	   | ~450–600 MB               | Fast       | Balanced          | Light          |
+| MATE             | ~500–700 MB               | Fast       | Traditional       | Light-Mid      |
+| Openbox/i3       | ~150–250 MB               | Ultra fast | Minimal           | Ultra-Light    |
+| KDE Plasma       | ~750–900 MB (Plasma 5/6)  | Fast       | Very feature-rich | Medium         |
+| GNOME            | ~1.1–1.6 GB               | Smooth     | Very modern       | Heavy          |

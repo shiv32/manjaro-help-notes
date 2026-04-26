@@ -1,0 +1,97 @@
+The `docker commit` command is used to **create a new image** from a **running or stopped container** — basically, you take a “snapshot” of a container’s current filesystem state and turn it into a reusable image.
+
+Let’s go step by step 👇
+
+---
+
+### 🧩 **Basic Syntax**
+
+```bash
+docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]
+```
+
+---
+
+### 🔍 **Example**
+
+```bash
+docker ps
+```
+
+Output:
+
+```
+CONTAINER ID   IMAGE        COMMAND       STATUS       NAMES
+abcd1234       ubuntu       "/bin/bash"   Up 2 hours   mycontainer
+```
+
+Now create an image from it:
+
+```bash
+docker commit mycontainer myimage:latest
+```
+
+✅ This creates a **new image** named `myimage:latest` based on the current state of the container `mycontainer`.
+
+---
+
+### ⚙️ **Common Options**
+
+| Option             | Description                                                 |
+| ------------------ | ----------------------------------------------------------- |
+| `-a "Author Name"` | Set the author field for the new image                      |
+| `-m "Message"`     | Add a commit message (like in Git)                          |
+| `--pause=false`    | Don’t pause the container during commit (default pauses it) |
+
+**Example:**
+
+```bash
+docker commit -a "Shiv" -m "Configured custom environment" mycontainer shiv/custom:1.0
+```
+
+---
+
+### 🪄 **Verify the New Image**
+
+```bash
+docker images
+```
+
+Output:
+
+```
+REPOSITORY       TAG       IMAGE ID       CREATED          SIZE
+shiv/custom      1.0       e99a9b4b4f20   10 seconds ago   300MB
+```
+
+---
+
+### 🚀 **Run a Container from the New Image**
+
+```bash
+docker run -it shiv/custom:1.0
+```
+
+---
+
+### ⚠️ **Important Notes**
+
+* `docker commit` captures **filesystem changes** only — not environment variables, port mappings, or volumes defined at runtime.
+* For repeatable builds, it’s better to use a **Dockerfile** instead of `commit`.
+* However, `docker commit` is useful for **quick snapshots** or **prototype images**.
+
+---
+
+### ✅ **Summary**
+
+| Command                               | Purpose                     |
+| ------------------------------------- | --------------------------- |
+| `docker commit CONTAINER myimage:tag` | Save container as new image |
+| `-a`                                  | Set author                  |
+| `-m`                                  | Add commit message          |
+| `--pause=false`                       | Don’t pause during commit   |
+| `docker images`                       | Verify new image            |
+
+---
+
+Would you like me to show how to **turn that committed image into a reusable Dockerfile** (so you can rebuild it anytime)?

@@ -1,0 +1,110 @@
+Perfect 👍 — you want to **add your user to the `docker` group** so you can run Docker commands **without using `sudo`**.
+
+Here’s how to do it step-by-step 👇
+
+---
+
+## 🧩 1️⃣ Check if `docker` group exists
+
+```bash
+getent group docker
+```
+
+If it shows something like:
+
+```
+docker:x:999:
+```
+
+✅ The group exists.
+If not:
+
+```bash
+sudo groupadd docker
+```
+
+---
+
+## 🧩 2️⃣ Add your user to the docker group
+
+Replace `$USER` with your username (or keep as-is — it expands automatically):
+
+```bash
+sudo usermod -aG docker $USER
+```
+
+---
+
+## 🧩 3️⃣ Apply changes
+
+You must **log out and log back in** (or reboot) for the new group membership to take effect.
+
+Alternatively, you can run:
+
+```bash
+newgrp docker
+```
+
+to apply it immediately in the current shell.
+
+---
+
+## 🧩 4️⃣ Verify
+
+Run:
+
+```bash
+groups
+```
+
+You should see `docker` in the list, e.g.:
+
+```
+shiv wheel docker
+```
+
+---
+
+## 🧩 5️⃣ Test Docker without sudo
+
+```bash
+docker ps
+```
+
+If you see something like:
+
+```
+CONTAINER ID   IMAGE   COMMAND   CREATED   STATUS   PORTS   NAMES
+```
+
+✅ Success — Docker works without `sudo`.
+
+If you get:
+
+```
+permission denied while trying to connect to the Docker daemon socket
+```
+
+then restart the Docker service:
+
+```bash
+sudo systemctl restart docker
+```
+
+and log out/in again.
+
+---
+
+## 🧭 Summary
+
+| Step | Command                         | Purpose                  |
+| ---- | ------------------------------- | ------------------------ |
+| 1    | `sudo groupadd docker`          | Create group if missing  |
+| 2    | `sudo usermod -aG docker $USER` | Add user                 |
+| 3    | `newgrp docker`                 | Apply change immediately |
+| 4    | `groups`                        | Verify                   |
+| 5    | `docker ps`                     | Test without sudo        |
+
+---
+
+Would you like me to show how to **do the same inside a remote server (via SSH)** or **inside a VS Code Dev Container** setup?

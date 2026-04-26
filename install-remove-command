@@ -1,0 +1,28 @@
+remove gnome-tweaks that was installed using:
+
+sudo pacman -S gnome-tweaks
+
+Run this command:
+
+sudo pacman -R gnome-tweaks
+
+If you also want to remove unused dependencies that were installed with it, use:
+
+sudo pacman -Rns gnome-tweaks
+-------------------------------------------
+Make sure you have an AUR helper like yay
+
+Install yay (if not already):
+
+sudo pacman -S yay
+
+Step 2: Use yay to install caffeine-ng
+
+yay -S caffeine-ng
+
+During installation, it may ask questions — press Enter to accept defaults unless you need customization.
+
+remove 
+
+yay -Rns caffeine-ng
+-------------------------------------------

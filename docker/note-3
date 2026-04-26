@@ -1,0 +1,127 @@
+To **stop Docker**, you can either stop **containers** or stop the **Docker service** entirely — depending on what you mean.
+Here’s how to do both 👇
+
+---
+
+## 🧱 **1️⃣ Stop a Running Container**
+
+List all running containers:
+
+```bash
+docker ps
+```
+
+Output example:
+
+```
+CONTAINER ID   IMAGE          COMMAND       STATUS       NAMES
+abcd1234       ubuntu         "/bin/bash"   Up 2 hours   mycontainer
+```
+
+Then stop it:
+
+```bash
+docker stop mycontainer
+```
+
+or by ID:
+
+```bash
+docker stop abcd1234
+```
+
+To stop **all running containers**:
+
+```bash
+docker stop $(docker ps -q)
+```
+
+---
+
+## ⚙️ **2️⃣ Stop Docker Service (Daemon)**
+
+### 🐧 **On Linux (systemd-based systems like Ubuntu / Manjaro / Fedora):**
+
+```bash
+sudo systemctl stop docker
+```
+
+Check status:
+
+```bash
+sudo systemctl status docker
+```
+
+To disable Docker from starting automatically on boot:
+
+```bash
+sudo systemctl disable docker
+```
+
+To start it again later:
+
+```bash
+sudo systemctl start docker
+```
+
+---
+
+### 🪟 **On Windows:**
+
+If using **Docker Desktop**:
+
+* Right-click the **Docker whale icon** in the system tray → choose **“Quit Docker Desktop.”**
+
+Or via **PowerShell (Admin):**
+
+```powershell
+Stop-Service com.docker.service
+```
+
+---
+
+### 🍎 **On macOS:**
+
+If using **Docker Desktop for Mac**:
+
+* Click the **whale icon** in the menu bar → choose **“Quit Docker Desktop.”**
+
+Or use command line:
+
+```bash
+osascript -e 'quit app "Docker"'
+```
+
+---
+
+## 🧹 **3️⃣ Optional — Stop Everything (Clean Up)**
+
+To stop and remove **all containers**:
+
+```bash
+docker stop $(docker ps -q)
+docker rm $(docker ps -aq)
+```
+
+To stop Docker **and free all resources**:
+
+```bash
+sudo systemctl stop docker
+sudo systemctl stop docker.socket
+```
+
+---
+
+### ✅ **Summary**
+
+| Action                              | Command                         |
+| ----------------------------------- | ------------------------------- |
+| Stop container                      | `docker stop <container>`       |
+| Stop all containers                 | `docker stop $(docker ps -q)`   |
+| Stop Docker service (Linux)         | `sudo systemctl stop docker`    |
+| Stop Docker Desktop (Windows/macOS) | Quit from tray or menu          |
+| Disable auto-start                  | `sudo systemctl disable docker` |
+
+---
+
+Would you like me to show how to **completely uninstall Docker (including images, containers, and volumes)** from your system?

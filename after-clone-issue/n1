@@ -1,0 +1,50 @@
+commad to check system boot time status
+
+
+~$ systemd-analyze
+Startup finished in 14.790s (firmware) + 6.973s (loader) + 7.167s (kernel) + 1min 33.147s (userspace) = 2min 2.077s 
+graphical.target reached after 1min 33.146s in userspace.
+~$ systemd-analyze blame | head -20
+1.825s NetworkManager.service
+ 752ms apparmor.service
+ 576ms dev-sdc2.device
+ 564ms snapd.service
+ 367ms systemd-journal-flush.service
+ 341ms ModemManager.service
+ 298ms user@1000.service
+ 242ms upower.service
+ 238ms systemd-udev-trigger.service
+ 213ms systemd-tmpfiles-setup-dev-early.service
+ 209ms systemd-journald.service
+ 208ms snapd.apparmor.service
+ 188ms udisks2.service
+ 182ms systemd-modules-load.service
+ 181ms lvm2-monitor.service
+ 175ms colord.service
+ 169ms systemd-tmpfiles-setup.service
+ 158ms systemd-remount-fs.service
+ 141ms systemd-rfkill.service
+ 120ms systemd-tmpfiles-clean.service
+~$ systemd-analyze critical-chain
+The time when unit became active or started is printed after the "@" character.
+The time the unit took to start is printed after the "+" character.
+
+graphical.target @1min 33.146s
+└─lightdm.service @1min 33.117s +29ms
+  └─plymouth-quit.service @1min 33.083s +30ms
+    └─systemd-user-sessions.service @1min 33.069s +9ms
+      └─network.target @1min 33.062s
+        └─wpa_supplicant.service @1min 32.995s +65ms
+          └─basic.target @1min 31.163s
+            └─dbus-broker.service @1min 31.116s +43ms
+              └─dbus.socket @1min 31.110s
+                └─sysinit.target @1min 31.106s
+                  └─systemd-update-utmp.service @1min 31.050s +54ms
+                    └─systemd-tmpfiles-setup.service @1min 30.871s +169ms
+                      └─local-fs.target @1min 30.860s
+                        └─tmp.mount @1min 30.822s +37ms
+                          └─systemd-journald.socket @682ms
+                            └─-.mount @636ms
+                              └─-.slice @636ms
+~$ 
+

@@ -1,0 +1,40 @@
+On Manjaro (and most Arch-based systems), Docker is managed by **systemd**, so “start on boot” is controlled by the Docker service being **enabled**.
+
+To disable Docker from starting automatically:
+
+### 1. Disable Docker service
+
+sudo systemctl disable docker.service
+
+### 2. (Optional) Disable Docker socket too
+
+Docker can also auto-start via socket activation, so disable that as well:
+
+sudo systemctl disable docker.socket
+
+### 3. Stop it right now (if running)
+
+
+sudo systemctl stop docker.service
+sudo systemctl stop docker.socket
+
+---
+
+### 4. Verify status
+
+systemctl is-enabled docker.service
+systemctl is-enabled docker.socket
+
+You should see `disabled`.
+
+---
+
+### Quick understanding
+
+* **enable** → start at boot
+* **disable** → don’t start at boot
+* **start** → run now
+* **stop** → stop now
+
+---
+

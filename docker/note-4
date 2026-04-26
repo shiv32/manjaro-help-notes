@@ -1,0 +1,123 @@
+Got it 👍 — you want to **use VS Code Dev Containers** to **connect to a remote machine** (like a server or VM).
+Let’s walk through the **two possible setups**, depending on what exactly you mean by “connect remote.”
+
+---
+
+## 🧩 1. Scenario A — Remote Dev Container on a Server (most common)
+
+You have a **remote Linux machine** (via SSH) and you want to:
+
+> Open your project in VS Code, but run it *inside a Docker container on that remote host.*
+
+### ✅ Steps:
+
+#### **Step 1: Requirements**
+
+**On remote machine (server/VM):**
+
+* Docker installed and running
+* User added to `docker` group
+* SSH access working
+
+**On local machine:**
+
+* VS Code
+* Extensions:
+
+  * **Remote - SSH**
+  * **Dev Containers**
+
+---
+
+#### **Step 2: Connect via SSH**
+
+1. Open VS Code → press `Ctrl+Shift+P`
+2. Run:
+
+   ```
+   Remote-SSH: Connect to Host...
+   ```
+3. Select your SSH target (e.g., `user@server-ip`)
+4. Wait for remote window to open (you’ll see `[SSH: server]` in the bottom left).
+
+---
+
+#### **Step 3: Open Dev Container**
+
+Once connected to remote:
+
+1. Open your project folder.
+2. Add a **Dev Container config** if not present:
+   `.devcontainer/devcontainer.json`
+
+   ```json
+   {
+     "name": "cpp-dev",
+     "image": "mcr.microsoft.com/devcontainers/cpp:ubuntu",
+     "features": {
+       "ghcr.io/devcontainers/features/git:1": {}
+     },
+     "customizations": {
+       "vscode": {
+         "extensions": ["ms-vscode.cpptools", "ms-vscode.cmake-tools"]
+       }
+     }
+   }
+   ```
+3. Then hit `Ctrl+Shift+P` →
+
+   ```
+   Dev Containers: Reopen in Container
+   ```
+
+👉 VS Code will build & attach to the container **on the remote host**, not locally.
+
+You’ll see `[Dev Container: cpp-dev][SSH: server]` in the status bar.
+
+---
+
+### 🧱 Folder Structure Example
+
+```
+project/
+ ├─ src/
+ ├─ include/
+ ├─ CMakeLists.txt
+ └─ .devcontainer/
+     └─ devcontainer.json
+```
+
+---
+
+## 🧩 2. Scenario B — Connect to a *Remote Dev Container* directly (via Docker context)
+
+If Docker is running remotely but you’re not SSH-ing into the host directly:
+
+1. Configure Docker context on local:
+
+   ```bash
+   docker context create remote --docker "host=ssh://user@server-ip"
+   docker context use remote
+   ```
+2. Then in VS Code:
+
+   * Open Command Palette →
+     `Dev Containers: Open Folder in Container...`
+   * Select your Docker context: `remote`
+
+VS Code now uses **Docker over SSH** to spin up your dev container remotely.
+
+---
+
+## 🧭 Troubleshooting Tips
+
+| Issue                             | Fix                                                         |
+| --------------------------------- | ----------------------------------------------------------- |
+| “Cannot connect to Docker daemon” | Run `sudo systemctl start docker` on server                 |
+| “Permission denied”               | Add user to docker group: `sudo usermod -aG docker $USER`   |
+| Container rebuild fails           | Run `Dev Containers: Rebuild and Reopen in Container`       |
+| SSH slow                          | Add `"remote.SSH.useLocalServer": true` in VS Code settings |
+
+---
+
+Would you like me to show a **minimal example of a `.devcontainer` config** for **C++ + CMake** (ready to use in remote dev container)?

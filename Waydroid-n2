@@ -1,0 +1,102 @@
+✅ Nice — you did everything right so far.
+
+That message means **Waydroid is still trying to use Wayland**, even though you’re on **X11**.
+Let’s fix it properly — step by step.
+
+---
+
+## 🧠 Why this happens
+
+By default, `waydroid` assumes a **Wayland** environment.
+On **Manjaro KDE (X11 session)**, we must explicitly tell Waydroid to use **X11 rendering** via `weston` or `wayland-bridge`.
+
+So we’ll force Waydroid to launch inside a minimal **nested Wayland compositor** (works fine under X11).
+
+---
+
+## 🧩 Fix — Run Waydroid GUI on X11 using `weston`
+
+### 1️⃣ Install `weston`
+
+```bash
+sudo pacman -S weston
+```
+
+---
+
+### 2️⃣ Start Weston in background
+
+This creates a temporary Wayland environment even if you’re on X11:
+
+```bash
+weston --backend=x11-backend.so --socket=wayland-1 &
+```
+
+You’ll see a small empty Weston window — **don’t close it**.
+
+---
+
+### 3️⃣ Start Waydroid in that Weston display
+
+Now run:
+
+```bash
+WAYLAND_DISPLAY=wayland-1 waydroid session start
+```
+
+(keep it running in that terminal)
+
+Then in a new terminal:
+
+```bash
+WAYLAND_DISPLAY=wayland-1 waydroid show-full-ui
+```
+
+💡 You should now see the **Android interface** appear on your Manjaro desktop.
+
+---
+
+## 🧩 4️⃣ Optional: Make a simple launcher script
+
+If you want to avoid typing all that each time:
+
+```bash
+nano ~/run-waydroid.sh
+```
+
+Paste this:
+
+```bash
+#!/bin/bash
+weston --backend=x11-backend.so --socket=wayland-1 &
+sleep 2
+WAYLAND_DISPLAY=wayland-1 waydroid session start &
+sleep 3
+WAYLAND_DISPLAY=wayland-1 waydroid show-full-ui
+```
+
+Then make it executable:
+
+```bash
+chmod +x ~/run-waydroid.sh
+```
+
+Run it any time with:
+
+```bash
+./run-waydroid.sh
+```
+
+---
+
+✅ **Summary**
+
+| Command                                                | Purpose                       |
+| ------------------------------------------------------ | ----------------------------- |
+| `sudo pacman -S weston`                                | Installs minimal compositor   |
+| `weston --backend=x11-backend.so --socket=wayland-1 &` | Creates Wayland bridge on X11 |
+| `WAYLAND_DISPLAY=wayland-1 waydroid show-full-ui`      | Launches Android GUI          |
+
+---
+
+Would you like me to include **sound + camera setup** for Waydroid (so WhatsApp calls work)?

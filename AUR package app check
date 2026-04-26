@@ -1,0 +1,10 @@
+
+
+yay is a tool to access AUR
+pacman is the real installer underneath
+
+Check if app is an AUR package
+
+pacman -Qi visual-studio-code-bin
+
+yay -Qs visual-studio-code-bin

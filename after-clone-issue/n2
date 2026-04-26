@@ -1,0 +1,44 @@
+command to check file system status
+
+
+~$ lsblk -f
+
+NAME   FSTYPE   FSVER LABEL            UUID                                 FSAVAIL FSUSE% MOUNTPOINTS
+loop0  squashfs 4.0                                                               0   100% /var/lib/snapd/snap/core18/2887
+loop1  squashfs 4.0                                                               0   100% /var/lib/snapd/snap/bare/5
+loop2  squashfs 4.0                                                               0   100% /var/lib/snapd/snap/core18/2923
+loop3  squashfs 4.0                                                               0   100% /var/lib/snapd/snap/core24/1055
+loop4  squashfs 4.0                                                               0   100% /var/lib/snapd/snap/gnome-46-2404/117
+loop5  squashfs 4.0                                                               0   100% /var/lib/snapd/snap/core24/1006
+loop6  squashfs 4.0                                                               0   100% /var/lib/snapd/snap/gtk-common-themes/1535
+loop7  squashfs 4.0                                                               0   100% /var/lib/snapd/snap/mesa-2404/887
+loop8  squashfs 4.0                                                               0   100% /var/lib/snapd/snap/snapd/24792
+loop9  squashfs 4.0                                                               0   100% /var/lib/snapd/snap/zoom-client/258
+loop10 squashfs 4.0                                                               0   100% /var/lib/snapd/snap/snapd/24718
+sda    ntfs           shiv_wd_blue_1tb 2735EB42263C42B3                                    
+sdb                                                                                        
+└─sdb1 ext4     1.0                    dc1da2f3-d1dc-41f5-ad8c-23c087d091f6                
+sdc                                                                                        
+├─sdc1 vfat     FAT32                  0B46-B41E                             298.8M     0% /boot/efi
+└─sdc2 btrfs                           a64eee95-87e6-4f81-b8cc-fec4107e73e8  877.8G     8% /var/log
+                                                                                           /var/cache
+                                                                                           /home
+                                                                                           /
+~$ sudo nano /etc/fstab                                                                            /etc/fstab                                                                                        
+# /etc/fstab: static file system information.
+#
+# Use 'blkid' to print the universally unique identifier for a device; this may
+# be used with UUID= as a more robust way to name devices that works even if
+# disks are added and removed. See fstab(5).
+#
+# <file system>             <mount point>  <type>  <options>  <dump>  <pass>
+UUID=0B46-B41E                            /boot/efi      vfat    defaults,umask=0077 0 2
+UUID=a64eee95-87e6-4f81-b8cc-fec4107e73e8 /              btrfs   subvol=/@,defaults,compress=zstd:1 0 0
+UUID=a64eee95-87e6-4f81-b8cc-fec4107e73e8 /home          btrfs   subvol=/@home,defaults,compress=zstd:1 0 0
+UUID=a64eee95-87e6-4f81-b8cc-fec4107e73e8 /var/cache     btrfs   subvol=/@cache,defaults,compress=zstd:1 0 0
+UUID=a64eee95-87e6-4f81-b8cc-fec4107e73e8 /var/log       btrfs   subvol=/@log,defaults,compress=zstd:1 0 0
+UUID=7f465431-8575-4e2e-bdb5-a5ff2e8ba986 swap           swap    defaults   0 0
+
+
+
+

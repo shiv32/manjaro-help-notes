@@ -1,0 +1,23 @@
+
+
+----------------------------------------------------
+glxinfo | grep "OpenGL renderer"
+lspci | grep VGA
+lsmod | grep -E "nvidia|amdgpu|i915"
+-------------------------------------------
+Want Live GPU Usage?
+
+sudo pacman -S radeontop
+radeontop
+
+Shows:
+GPU load
+VRAM usage
+Shader activity
+----------------------------------
+inxi -G --full
+
+---------------------------------------
+glxinfo | grep "Video memory"
+
+-------------------------------------

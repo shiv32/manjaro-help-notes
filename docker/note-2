@@ -1,0 +1,112 @@
+To **delete a Docker image**, you can use the `docker rmi` command.
+Here’s a complete guide 👇
+
+---
+
+### 🧩 **Basic Syntax**
+
+```bash
+docker rmi [OPTIONS] IMAGE [IMAGE...]
+```
+
+---
+
+### 🔍 **Example**
+
+1. List all images:
+
+   ```bash
+   docker images
+   ```
+
+   Output:
+
+   ```
+   REPOSITORY      TAG       IMAGE ID       CREATED         SIZE
+   shiv/custom     1.0       e99a9b4b4f20   2 hours ago     300MB
+   ubuntu          latest    ba6acccedd29   3 days ago      77MB
+   ```
+
+2. Delete by **image name**:
+
+   ```bash
+   docker rmi shiv/custom:1.0
+   ```
+
+   or by **image ID**:
+
+   ```bash
+   docker rmi e99a9b4b4f20
+   ```
+
+✅ This removes the image from your local system.
+
+---
+
+### ⚙️ **If Image Is in Use**
+
+If you get an error like:
+
+```
+Error response from daemon: conflict: unable to delete (must be forced) - image is being used by running container
+```
+
+Then:
+
+1. Stop and remove the container using that image:
+
+   ```bash
+   docker ps -a
+   docker stop <container_id>
+   docker rm <container_id>
+   ```
+2. Then delete the image again:
+
+   ```bash
+   docker rmi <image_id>
+   ```
+
+Or force delete it:
+
+```bash
+docker rmi -f <image_id>
+```
+
+⚠️ *Be careful — this forcibly removes the image even if containers depend on it.*
+
+---
+
+### 🧹 **Clean Up All Unused Images**
+
+Remove **dangling** (untagged) or **unused** images:
+
+```bash
+docker image prune
+```
+
+To remove **all unused images** (not just dangling):
+
+```bash
+docker image prune -a
+```
+
+Add `-f` to skip confirmation:
+
+```bash
+docker image prune -af
+```
+
+---
+
+### ✅ **Summary**
+
+| Command                 | Description              |
+| ----------------------- | ------------------------ |
+| `docker rmi <image>`    | Delete specific image    |
+| `docker rmi -f <image>` | Force delete image       |
+| `docker image prune`    | Remove dangling images   |
+| `docker image prune -a` | Remove all unused images |
+
+---
+
+Would you like me to show how to **clean up unused containers, volumes, and networks** in one go (`docker system prune`)?

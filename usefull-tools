@@ -1,0 +1,6 @@
+bmon (Bandwidth Monitor) – Simple and Popular
+sudo pacman -S bmon
+
+nload – Focused on speed graphs
+sudo pacman -S nload
+

@@ -1,0 +1,21 @@
+
+Not working -->
+
+How to make Manjaro auto-suspend even when logged out:
+
+You can enable system-wide suspend by setting up logind.conf (used by systemd-logind).
+
+1. Edit the systemd logind config:
+
+	sudo nano /etc/systemd/logind.conf
+
+Look for these lines and uncomment + set values (or add them if not there):
+
+	IdleAction=suspend
+	IdleActionSec=15min
+
+This means: after 15 minutes of system idle time (regardless of login state), the system will suspend.
+
+2. Restart systemd-logind:
+
+	sudo systemctl restart systemd-logind

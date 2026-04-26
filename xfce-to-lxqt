@@ -1,0 +1,31 @@
+
+Warning : Manjaro dosn't support officially LXQT so dont do this activity.
+
+https://wiki.manjaro.org/index.php/Install_Desktop_Environments
+
+---------------------------------------------------------------------
+Fix Missing Icons in Manjaro LXQt
+	1. Install Recommended Icon Themes
+
+	LXQt needs complete icon sets. Try installing oxygen, breeze, or papirus:
+
+		sudo pacman -S papirus-icon-theme oxygen breeze-icons
+
+	Then logout and login again.
+
+
+	2. Set Icon Theme in LXQt Appearance
+
+	Go to:
+
+		Preferences → LXQt settings → Appearance → Icons tab
+
+	Choose a complete icon set like:
+
+		    Papirus
+
+		    Breeze
+
+		    Oxygen
+
+	Then click Apply.

@@ -1,0 +1,103 @@
+
+---
+
+# 🚀 1. Turn OFF Startup Apps (easy)
+
+### Method 1 (fastest)
+
+1. Press **Ctrl + Shift + Esc** → opens Task Manager
+2. Go to **Startup apps** tab
+3. Disable everything you don’t need:
+
+   * Microsoft Teams
+   * OneDrive
+   * Edge
+   * Any random apps
+
+👉 Right-click → **Disable**
+
+---
+
+### Method 2 (Settings)
+
+1. Open **Settings**
+2. Go to:
+
+   * **Apps → Startup**
+3. Toggle OFF unwanted apps
+
+---
+
+# 🔧 2. Turn OFF Background Apps (this is confusing in Windows 11)
+
+Microsoft hid this option compared to Windows 10.
+
+### Do this instead:
+
+1. Open **Settings**
+2. Go to:
+
+   * **Apps → Installed apps**
+3. Pick an app (like Edge or Teams)
+4. Click **⋮ (3 dots) → Advanced options**
+5. Under:
+
+   * **Background app permissions**
+6. Set to:
+
+   * ❌ **Never**
+
+👉 Repeat for heavy apps
+
+---
+
+# ⚡ 3. Quick Power Boost Setting (IMPORTANT)
+
+1. Open **Settings**
+2. Go to:
+
+   * **System → Power**
+3. Set:
+
+   * Power mode → **Best performance**
+
+---
+
+# 🎮 4. Disable Animations (biggest improvement)
+
+1. Press **Win + R**
+2. Type:
+
+   ```
+   SystemPropertiesPerformance
+   ```
+3. Select:
+
+   * **Adjust for best performance**
+
+---
+
+# 💡 Why this matters (in VM)
+
+Inside a VM:
+
+* Every background app = extra CPU + RAM usage
+* Windows 11 already heavy
+
+👉 These steps reduce:
+
+* Lag
+* Freezing
+* “Hanging” feeling
+
+---
+
+# ⚠️ Reality Check
+
+Even after this:
+
+* VirtualBox still has limits
+* But these steps will make it **noticeably smoother**
+
+---
+

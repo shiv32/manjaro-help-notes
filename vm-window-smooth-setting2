@@ -1,0 +1,183 @@
+Running Windows 11 smoothly inside Oracle VM VirtualBox needs both **host tuning + VM configuration + guest tweaks**. 
+Since you’re on Linux (Manjaro XFCE), you can get decent performance if you set things properly.
+
+---
+
+# 🧠 1. VirtualBox VM Settings (MOST IMPORTANT)
+
+### 🔹 System → Processor
+
+* CPU: **4 cores** (you have 4c/8t → don’t give all)
+* Execution cap: **100%**
+* Enable:
+
+  * ✅ PAE/NX
+  * ✅ VT-x/AMD-V (should be auto)
+
+---
+
+### 🔹 System → Motherboard
+
+* RAM: **8–16 GB** (you have 64 GB → give at least 12 GB ideally)
+* Chipset: **ICH9**
+* Enable:
+
+  * ✅ EFI (required for Win11)
+
+---
+
+### 🔹 Display
+
+* Video Memory: **128 MB (max)**
+* Graphics Controller: **VMSVGA**
+* Enable:
+
+  * ✅ 3D Acceleration
+
+---
+
+### 🔹 Storage
+
+* Use:
+
+  * Controller: **NVMe** (better than SATA)
+* Disk type:
+
+  * Prefer **VDI → Fixed size** (faster than dynamic)
+
+---
+
+### 🔹 General → Advanced
+
+* Paravirtualization: **KVM**
+
+---
+
+# ⚡ 2. Install Guest Additions (VERY IMPORTANT)
+
+Inside Windows VM:
+
+* Devices → Insert Guest Additions CD
+* Install and reboot
+
+This gives:
+
+* Better graphics
+* Smooth mouse
+* Improved performance
+
+---
+
+# ⚙️ 3. Windows 11 Optimization (Inside VM)
+
+### 🔹 Turn off animations
+
+* Settings → Accessibility → Visual Effects
+* Disable:
+
+  * Animation effects
+  * Transparency effects
+
+---
+
+### 🔹 Performance Mode
+
+* Search: `sysdm.cpl`
+* Advanced → Performance → Settings
+* Select:
+  👉 **Adjust for best performance**
+
+---
+
+### 🔹 Disable Startup Apps
+
+* Task Manager → Startup
+* Disable everything unnecessary
+
+---
+
+### 🔹 Disable Background Apps
+
+* Settings → Apps → Installed Apps
+* Turn off background permissions
+
+---
+
+### 🔹 Power Plan
+
+* Set to:
+  👉 **High Performance**
+
+---
+
+### 🔹 Disable Windows Defender (optional for VM)
+
+* Can reduce CPU usage (only if VM is isolated)
+
+---
+
+# 🚀 4. Host (Manjaro) Optimization
+
+Since host matters a lot:
+
+* Close heavy apps (browser, IDEs)
+* Use XFCE (good choice already 👍)
+* Enable CPU virtualization:
+
+  ```bash
+  lscpu | grep Virtualization
+  ```
+
+---
+
+# ⚠️ Reality Check (Important)
+
+Even after all tweaks:
+
+👉 Oracle VM VirtualBox is **not the best for Windows 11 performance**
+
+You already noticed lag — that’s normal.
+
+---
+
+# 💡 Better Alternative (Strong Recommendation)
+
+Use:
+👉 KVM + QEMU + virt-manager
+
+Why?
+
+* Near **native performance**
+* Better CPU scheduling
+* Better disk I/O
+
+---
+
+# 🔥 Ideal Setup for You (Your Hardware)
+
+You said:
+
+* Ryzen APU
+* 64 GB RAM
+* SSD
+
+👉 With KVM:
+
+* You can run Windows 11 **almost like real machine**
+* Even Microsoft Visual Studio will run smoothly
+
+---
+
+# 🧩 If You Still Want VirtualBox
+
+Best stable config summary:
+
+* CPU: 4 cores
+* RAM: 12–16 GB
+* Disk: Fixed VDI (NVMe)
+* Graphics: VMSVGA + 3D ON
+* Guest Additions: Installed
+* Windows: Animations OFF
+
+---
+

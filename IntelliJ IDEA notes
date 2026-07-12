@@ -1,0 +1,20 @@
+
+------------------------------------------------
+Add an External Tool in IntelliJ
+
+If you do this often, you can add a menu item:
+
+Settings → Tools → External Tools
+Click +.
+Configure:
+Name: Open in Thunar
+Program: thunar
+Arguments: $ProjectFileDir$
+Working directory: $ProjectFileDir$
+
+Then you can access it from Tools → External Tools → Open in Thunar, and it will open the current project's folder directly in the XFCE file manager.
+--------------------------------------------------
+Format the current file
+Linux/Windows: Ctrl + Alt + L
+macOS: ⌥ Option + ⌘ Command + L
+------------------------------------------------

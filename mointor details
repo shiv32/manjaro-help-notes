@@ -1,0 +1,9 @@
+
+
+monitor details
+~$ inxi -Gxx
+
+| Monitor       | Connection | Panel Type      |
+| ------------- | ---------- | --------------- |
+| 32FHDMCQCCJB  | DVI        | **VA (Curved)** |
+| 32FHDMIQNN53B | HDMI       | **IPS (Flat)**  |

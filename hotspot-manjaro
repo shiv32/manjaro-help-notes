@@ -56,14 +56,14 @@ If the interface is wlan0:
 nmcli device wifi hotspot \
     ifname wlan0 \
     ssid AntHotspot \
-    password dingdong123
+    password yourPassword
 
 If it's wlp41s0f3u4i2:
 
 nmcli device wifi hotspot \
     ifname wlp41s0f3u4i2 \
     ssid AntHotspot \
-    password dingdong123
+    password yourPassword
 ----------------------------------
 
 

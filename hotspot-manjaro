@@ -47,6 +47,24 @@ journalctl -fu NetworkManager
 sudo tcpdump -i enp37s0 icmp
 sudo tcpdump -i wlp41s0f3u4i2 icmp
 -----------------------------
+nmcli device status
+
+create the hotspot
+
+If the interface is wlan0:
+
+nmcli device wifi hotspot \
+    ifname wlan0 \
+    ssid AntHotspot \
+    password dingdong123
+
+If it's wlp41s0f3u4i2:
+
+nmcli device wifi hotspot \
+    ifname wlp41s0f3u4i2 \
+    ssid AntHotspot \
+    password dingdong123
+----------------------------------
 
 
 

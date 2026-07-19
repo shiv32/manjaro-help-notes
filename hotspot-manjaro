@@ -1,3 +1,5 @@
+Make wifi dongle hotspot if AP(Access Point) module is in it.
+
 -----------------------------------------
 Check device
 ~$ nmcli device status

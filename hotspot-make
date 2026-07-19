@@ -1,0 +1,53 @@
+-----------------------------------------
+Check device
+~$ nmcli device status
+DEVICE         TYPE      STATE                   CONNECTION 
+wlp41s0f4u1i2  wifi      connected               geek 2     
+lo             loopback  connected (externally)  lo         
+docker0        bridge    connected (externally)  docker0    
+enp37s0        ethernet  unavailable             --         
+---------------------------------------
+Hotspot connection
+~$ nmcli device wifi hotspot \
+    ifname wlp41s0f3u4i2 \
+    ssid AntHotspot \
+    password yourPassword
+
+
+--------------------------------------
+nmcli connection show
+
+nmcli connection delete Hotspot
+---------
+nmcli connection down Hotspot
+nmcli connection delete Hotspot
+----------------------
+sudo iw event
+--------------------------
+Solution fixed hotspot from wifi dongle
+
+check the policy:
+sudo iptables -L FORWARD -n
+	Chain FORWARD (policy DROP)
+
+
+Temporarily change the Linux forwarding policy to ACCEPT:
+sudo iptables -P FORWARD ACCEPT
+
+sudo iptables -L FORWARD -n
+	Chain FORWARD (policy ACCEPT)
+
+nmcli connection down Hotspot
+nmcli connection up Hotspot
+
+Reconnect your phone and test the Internet.
+---------------------------
+useful command
+journalctl -fu NetworkManager
+sudo tcpdump -i enp37s0 icmp
+sudo tcpdump -i wlp41s0f3u4i2 icmp
+-----------------------------
+
+
+
+

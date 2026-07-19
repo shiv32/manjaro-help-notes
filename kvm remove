@@ -1,0 +1,29 @@
+~$ lsmod | grep kvm
+kvm_amd               241664  0
+kvm                  1388544  1 kvm_amd
+irqbypass              12288  1 kvm
+ccp                   192512  1 kvm_amd
+~$ docker context ls
+NAME        DESCRIPTION                               DOCKER ENDPOINT               ERROR
+default *   Current DOCKER_HOST based configuration   unix:///var/run/docker.sock   
+~$ udo modprobe -r kvm_amd
+zsh: correct 'udo' to 'sudo' [nyae]? n
+zsh: command not found: udo
+~$ sudo modprobe -r kvm
+[sudo] password for shiv: 
+modprobe: FATAL: Module kvm is in use.
+~$ sudo lsof /dev/kvm
+lsof: WARNING: can't stat() fuse.gvfsd-fuse file system /run/user/1000/gvfs
+      Output information may be incomplete.
+lsof: WARNING: can't stat() fuse.portal file system /run/user/1000/doc
+      Output information may be incomplete.
+~$ lsmod | grep kvm
+kvm_amd               241664  0
+kvm                  1388544  1 kvm_amd
+irqbypass              12288  1 kvm
+ccp                   192512  1 kvm_amd
+~$ sudo modprobe -r kvm_amd
+~$ lsmod | grep kvm
+~$ 
+
+

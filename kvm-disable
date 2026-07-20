@@ -1,0 +1,39 @@
+Yes. If you want to **permanently stop KVM from loading** so VirtualBox always has access to AMD-V, you can disable it.
+
+### 1. Blacklist the KVM modules
+
+```bash
+echo "blacklist kvm" | sudo tee /etc/modprobe.d/blacklist-kvm.conf
+echo "blacklist kvm_amd" | sudo tee -a /etc/modprobe.d/blacklist-kvm.conf
+```
+
+### 2. Rebuild the initramfs (Manjaro)
+
+```bash
+sudo mkinitcpio -P
+```
+
+### 3. Reboot
+
+```bash
+sudo reboot
+```
+
+### 4. Verify after reboot
+
+```bash
+lsmod | grep kvm
+```
+
+If nothing is printed, KVM is no longer loaded and VirtualBox should be able to use AMD-V.
+
+### If you ever want to re-enable KVM
+
+```bash
+sudo rm /etc/modprobe.d/blacklist-kvm.conf
+sudo mkinitcpio -P
+sudo reboot
+```
+
+**Note:** This disables KVM/QEMU virtualization on your system. 
+VirtualBox will work, but you won't be able to use KVM-based virtual machines until you remove the blacklist and reboot.

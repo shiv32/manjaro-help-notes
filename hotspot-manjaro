@@ -67,6 +67,24 @@ nmcli device wifi hotspot \
     ssid AntHotspot \
     password yourPassword
 ----------------------------------
+create new wifi NW UI close
+
+~$ ps -ef | grep -E "nm-connection-editor|nm-applet"
+shiv 331222 330534 0 17:06 ? 00:00:13 nm-applet
+
+pkill nm-applet
+or
+kill 331222
+
+in status bar show nw icon
+
+nm-applet &
+----------------------------------
+bluthooth icon restore on status bar
+
+blueman-applet &
+
+------------------------------
 
 
 

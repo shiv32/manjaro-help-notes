@@ -1,0 +1,136 @@
+Sure. We'll do this **safely**, keeping your current 6.12 kernel as a fallback.
+
+### Step 1 — Check current kernel
+
+```bash
+uname -r
+```
+
+You should have:
+
+```text
+6.12.104-1-MANJARO
+```
+
+### Step 2 — Install Linux 6.18 + headers
+
+You already have the 6.18 headers available, so install both kernel and headers:
+
+```bash
+sudo pacman -S linux618 linux618-headers
+```
+
+If pacman asks for confirmation, choose `Y`.
+
+### Step 3 — Verify both kernels are installed
+
+```bash
+mhwd-kernel -li
+```
+
+You should see something similar to:
+
+```text
+Currently running: 6.12.104-1-MANJARO
+6.12.104-1-MANJARO
+6.18.45-1-MANJARO
+```
+
+### Step 4 — Reboot
+
+```bash
+sudo reboot
+```
+
+Your system should boot normally.
+
+### Step 5 — Check which kernel you're running
+
+After reboot:
+
+```bash
+uname -r
+```
+
+If it says:
+
+```text
+6.18.45-1-MANJARO
+```
+
+continue.
+
+If it still says `6.12.104`, that's okay—tell me and we'll select 6.18 from GRUB.
+
+### Step 6 — Check the native RTL8821AU driver
+
+Before plugging in the TP-Link adapter:
+
+```bash
+modinfo rtw_8821au
+```
+
+If you get driver information, that's a good sign.
+
+### Step 7 — Plug in your TP-Link Archer T2U Plus
+
+Now connect:
+
+```text
+TP-Link Archer T2U PLUS
+2357:0120
+```
+
+Then run:
+
+```bash
+lsusb
+```
+
+You should see:
+
+```text
+2357:0120 TP-Link Archer T2U PLUS [RTL8821AU]
+```
+
+### Step 8 — Check driver binding
+
+```bash
+lsusb -t
+```
+
+Look for:
+
+```text
+Driver=rtw_8821au
+```
+
+Then:
+
+```bash
+ip link
+```
+
+You should get a new wireless interface such as:
+
+```text
+wlx...
+```
+
+### Step 9 — Check kernel messages
+
+```bash
+sudo dmesg | tail -50
+```
+
+---
+
+**Don't remove your 6.12 kernel or install the old `8821au-20210708` driver again yet.**
+
+If you want to proceed one step at a time, start with **Step 2**:
+
+```bash
+sudo pacman -S linux618 linux618-headers
+```
+
+Paste the output here and I'll tell you the next step.

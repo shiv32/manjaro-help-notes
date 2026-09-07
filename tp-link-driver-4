@@ -1,0 +1,14 @@
+
+remove depricated setup
+
+sudo dkms remove 8812au/5.6.4.2_35491.20191025 --all
+dkms status
+
+sudo rm -rf /usr/src/8812au-5.6.4.2_35491.20191025
+find /usr/src -maxdepth 1 -type d -name '8812au*'
+
+ls /var/lib/dkms/
+You should not see an 8812au directory there.
+
+If everything is clean, your DKMS setup is:
+RTL8821AU → rtw88/0.6 → rtw_8821au → kernel 6.18.45

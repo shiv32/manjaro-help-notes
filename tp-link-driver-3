@@ -1,0 +1,84 @@
+Good — **Linux 6.18 installed successfully**. Your system is fine. ✅
+
+There are two separate things in that output:
+
+### 1. Linux 6.18 installation succeeded
+
+You now have:
+
+```text
+6.18.45-1-MANJARO
+```
+
+and matching:
+
+```text
+linux618-headers 6.18.45-1
+```
+
+GRUB also detected both kernels:
+
+```text
+Found linux image: /boot/vmlinuz-6.18-x86_64
+Found linux image: /boot/vmlinuz-6.12-x86_64
+```
+
+So your **6.12 kernel remains available as a fallback**.
+
+### 2. Ignore the `8812au` error for now
+
+This part:
+
+```text
+dkms install 8812au/5.6.4.2_35491.20191025
+Error! Bad return status
+```
+
+is an **old DKMS driver you already had installed**. It is unrelated to installing Linux 6.18.
+
+More importantly, the new `rtw88/0.6` DKMS module installed successfully:
+
+```text
+==> dkms install --no-depmod rtw88/0.6 -k 6.18.45-1-MANJARO
+==> depmod 6.18.45-1-MANJARO
+```
+
+That's promising.
+
+### Next step — reboot
+
+Do:
+
+```bash
+sudo reboot
+```
+
+After reboot, run:
+
+```bash
+uname -r
+```
+
+If it says:
+
+```text
+6.18.45-1-MANJARO
+```
+
+then **don't plug in the TP-Link yet**.
+
+Run:
+
+```bash
+modinfo rtw_8821au
+```
+
+and:
+
+```bash
+dkms status
+```
+
+Paste those two outputs.
+
+We'll then plug in the **`2357:0120` Archer T2U Plus** and test it.
